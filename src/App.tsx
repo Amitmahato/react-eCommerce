@@ -5,6 +5,10 @@ import { ThemeProvider } from "styled-components";
 import Hero from "./components/hero";
 import MainSection from "./components/main-section";
 import "./App.css";
+import { createContext } from "react";
+import { useState } from "react";
+import SHOP_DATA, { productInterface } from "./data";
+import FeaturedProductCollection from "./components/featured-collection";
 
 const theme = {
   containerPadding: {
@@ -13,14 +17,43 @@ const theme = {
   },
 };
 
+interface AppContextInterface {
+  products: productInterface[];
+  setProducts: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        title: string;
+        description: string;
+        imageUrl: string;
+        price: number;
+      }[]
+    >
+  >;
+}
+
+// @ts-ignore
+const AppContext = createContext<AppContextInterface>(null);
+
 function App() {
+  const [products, setProducts] = useState(SHOP_DATA);
   return (
-    <ThemeProvider theme={theme}>
-      <Header />
-      <Hero />
-      <MainSection />
-    </ThemeProvider>
+    <AppContext.Provider
+      value={{
+        // @ts-ignore
+        products,
+        setProducts,
+      }}
+    >
+      <ThemeProvider theme={theme}>
+        <Header />
+        <Hero />
+        <MainSection />
+        <FeaturedProductCollection />
+      </ThemeProvider>
+    </AppContext.Provider>
   );
 }
 
+export { AppContext };
 export default App;
