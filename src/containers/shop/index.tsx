@@ -3,14 +3,14 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { AppContext } from "../../App";
 import { productInterface } from "../../data";
-import FeaturedProduct from "../featured-products";
+import FeaturedProduct from "../../components/featured-products";
+import Layout from "../../components/layout";
 
 const ProductCollectionWrapper = styled.div`
-  margin-top: 6rem;
   padding: ${({ theme }) => theme.containerPadding.paddingLR};
 
   .featured-collection-title {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
   }
 
@@ -25,23 +25,23 @@ const ProductCollectionWrapper = styled.div`
   }
 `;
 
-const FeaturedProductCollection: React.FC = () => {
+const Shop: React.FC = () => {
   const { products } = useContext(AppContext);
   return (
-    <ProductCollectionWrapper>
-      <h2 className="featured-collection-title">Featured Collection</h2>
-      <div className="products">
-        {products
-          .filter((product: productInterface) => product.id <= 4)
-          .map((product: productInterface) => (
+    <Layout>
+      <ProductCollectionWrapper>
+        <h2 className="featured-collection-title">Products Collection</h2>
+        <div className="products">
+          {products.map((product: productInterface) => (
             <FeaturedProduct
               product={product}
               key={`${product.title}_${product.id}`}
             />
           ))}
-      </div>
-    </ProductCollectionWrapper>
+        </div>
+      </ProductCollectionWrapper>
+    </Layout>
   );
 };
 
-export default FeaturedProductCollection;
+export default Shop;

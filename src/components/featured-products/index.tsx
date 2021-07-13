@@ -6,11 +6,29 @@ import { productInterface } from "../../data";
 const FeaturedProductWrapper = styled.div`
   border: 1px solid #0c223522;
   padding: 1rem;
-  /* flex-grow: 0.25; */
+  @media (max-width: 619px) {
+    flex-grow: 1;
+  }
+
+  @media (max-width: 889px) {
+    flex-grow: 0.5;
+  }
 
   .imageWrapper {
     img {
       width: 220px;
+    }
+
+    @media (max-width: 619px) {
+      img {
+        width: 100%;
+      }
+    }
+
+    @media (min-width: 620px) and (max-width: 889px) {
+      img {
+        width: 280px;
+      }
     }
   }
 
