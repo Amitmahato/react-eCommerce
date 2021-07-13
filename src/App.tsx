@@ -9,6 +9,7 @@ import { createContext } from "react";
 import { useState } from "react";
 import SHOP_DATA, { productInterface } from "./data";
 import FeaturedProductCollection from "./components/featured-collection";
+import Footer from "./components/footer";
 
 const theme = {
   containerPadding: {
@@ -50,6 +51,7 @@ function App() {
         <Hero />
         <MainSection />
         <FeaturedProductCollection />
+        <Footer />
       </ThemeProvider>
     </AppContext.Provider>
   );
