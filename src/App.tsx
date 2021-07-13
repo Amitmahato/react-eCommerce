@@ -7,6 +7,7 @@ import { useState } from "react";
 import SHOP_DATA, { productInterface } from "./data";
 import { Route, Switch } from "react-router-dom";
 import HomePage from "./components/homepage";
+import NotFound from "./components/404";
 
 const theme = {
   containerPadding: {
@@ -46,6 +47,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route path="*" component={NotFound} />
         </Switch>
       </ThemeProvider>
     </AppContext.Provider>
