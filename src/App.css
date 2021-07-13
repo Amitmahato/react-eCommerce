@@ -1,0 +1,11 @@
+.ant-btn {
+  color: white;
+  border: 1px solid black;
+  background-color: black;
+}
+
+.ant-btn:hover{
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+}

@@ -25,13 +25,15 @@ const HeroWrapper = styled.section`
     font-weight: 600;
   }
 
-  .is-blue {
-    background-color: #40a9ff;
-    color: white;
+  .is-white {
+    color: black;
+    border: 1px solid white;
+    background-color: white;
 
     :hover {
-      color: #40a9ff;
-      background-color: white;
+      color: white;
+      border: 1px solid black;
+      background-color: black;
     }
   }
 `;
@@ -43,7 +45,7 @@ const Hero = () => {
         <div className="container">
           <h1 className="hero-title">Bags reimagined for modern life.</h1>
           <div className="shop-now-btn">
-            <Button className="is-blue">SHOP NOW</Button>
+            <Button className="is-white">SHOP NOW</Button>
           </div>
         </div>
       </div>

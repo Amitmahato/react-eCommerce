@@ -23,16 +23,6 @@ const MainSectionWrapper = styled.div`
     }
   }
 
-  .is-blue {
-    background-color: #40a9ff;
-    color: white;
-
-    :hover {
-      color: #40a9ff;
-      background-color: white;
-    }
-  }
-
   .productImage {
     img {
       max-width: 225px;
@@ -98,7 +88,6 @@ const MainSection: React.FC<RouteComponentProps> = ({ history }) => {
             balance of form and function.
           </p>
           <Button
-            className="is-blue"
             id="shop-now"
             onClick={() => history.push("/product/1")}
           >

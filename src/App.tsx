@@ -4,8 +4,7 @@ import "antd/dist/antd.css";
 import { ThemeProvider } from "styled-components";
 import Hero from "./components/hero";
 import MainSection from "./components/main-section";
-import { createContext } from "react";
-import { useState } from "react";
+import "./App.css";
 
 const theme = {
   containerPadding: {
