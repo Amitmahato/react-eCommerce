@@ -1,15 +1,12 @@
 import React from "react";
-import Header from "./components/headers";
 import "antd/dist/antd.css";
 import { ThemeProvider } from "styled-components";
-import Hero from "./components/hero";
-import MainSection from "./components/main-section";
 import "./App.css";
 import { createContext } from "react";
 import { useState } from "react";
 import SHOP_DATA, { productInterface } from "./data";
-import FeaturedProductCollection from "./components/featured-collection";
-import Footer from "./components/footer";
+import { Route, Switch } from "react-router-dom";
+import HomePage from "./components/homepage";
 
 const theme = {
   containerPadding: {
@@ -47,11 +44,9 @@ function App() {
       }}
     >
       <ThemeProvider theme={theme}>
-        <Header />
-        <Hero />
-        <MainSection />
-        <FeaturedProductCollection />
-        <Footer />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+        </Switch>
       </ThemeProvider>
     </AppContext.Provider>
   );
