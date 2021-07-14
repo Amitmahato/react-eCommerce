@@ -1,8 +1,11 @@
 import { Button } from "antd";
 import React from "react";
+import { useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import { CartContext } from "../../context/Cart-context";
 import { productInterface } from "../../data";
+import { FindInCart } from "../../helper/cart";
 
 const FeaturedProductWrapper = styled.div`
   border: 1px solid #0c223522;
@@ -42,12 +45,25 @@ const FeaturedProductWrapper = styled.div`
   .full-width {
     width: 100%;
   }
+
+  .is-white {
+    color: black;
+    border: 1px solid black;
+    background-color: white;
+  }
 `;
 
 const FeaturedProduct: React.FC<
   { product: productInterface } & RouteComponentProps
 > = ({ product, history }) => {
   const { id, title, imageUrl, price } = product;
+  const { cartItems, addProduct } = useContext(CartContext);
+
+  const handleAddToCart = () => {
+    if (addProduct) {
+      addProduct(product);
+    }
+  };
 
   return (
     <FeaturedProductWrapper>
@@ -62,7 +78,20 @@ const FeaturedProduct: React.FC<
       <div className="productDetails">
         <h3>{title}</h3>
         <p>$ {price}</p>
-        <Button className="full-width">ADD TO CART</Button>
+        {!FindInCart(product, cartItems) ? (
+          <Button className="full-width" onClick={handleAddToCart}>
+            ADD TO CART
+          </Button>
+        ) : (
+          <Button
+            className="full-width is-white"
+            onClick={() =>
+              console.log("Increase the quantity of this item by 1")
+            }
+          >
+            ADD MORE
+          </Button>
+        )}
       </div>
     </FeaturedProductWrapper>
   );

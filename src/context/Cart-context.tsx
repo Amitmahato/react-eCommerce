@@ -1,11 +1,9 @@
 import React, { createContext, useReducer } from "react";
-import cartReducer from "./Cart-reducer";
-
-interface cartStateInterface {
-  cartItems: [];
-  itemCount: number;
-  total: number;
-}
+import { productInterface } from "../data";
+import cartReducer, {
+  CartAcitonTypes,
+  cartStateInterface,
+} from "./Cart-reducer";
 
 const initialState: cartStateInterface = {
   cartItems: [],
@@ -17,8 +15,15 @@ const CartContext = createContext(initialState);
 
 const CartContextProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  const addProduct = (product: productInterface) => {
+    dispatch({ type: CartAcitonTypes.ADD_ITEM, payload: product });
+  };
+
   return (
-    <CartContext.Provider value={{ ...state }}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ ...state, addProduct }}>
+      {children}
+    </CartContext.Provider>
   );
 };
 

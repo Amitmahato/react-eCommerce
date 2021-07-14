@@ -5,6 +5,8 @@ import { AppContext } from "../../App";
 import Layout from "../../components/layout";
 import { productInterface } from "../../data";
 import { Button } from "antd";
+import { FindInCart } from "../../helper/cart";
+import { CartContext } from "../../context/Cart-context";
 
 const ProductViewWrapper = styled.div`
   padding: ${({ theme }) => theme.containerPadding.paddingLR};
@@ -55,6 +57,7 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
   const { products } = useContext(AppContext);
   const { id } = match.params;
   const [product, setProduct] = useState<productInterface | null>(null);
+  const { cartItems, addProduct } = useContext(CartContext);
 
   useEffect(() => {
     const p = products.find((item) => Number(item.id) === Number(id));
@@ -64,6 +67,12 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
       setProduct(p);
     }
   }, [id, products, history]);
+
+  const handleAddToCart = () => {
+    if (addProduct) {
+      addProduct(product);
+    }
+  };
 
   return (
     product && (
@@ -78,7 +87,23 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
               <p>$ {product.price}</p>
             </div>
             <div className="add-to-cart-btns">
-              <Button className="is-white">ADD TO CART</Button>
+              {!FindInCart(product, cartItems) ? (
+                <Button
+                  className="full-width is-white"
+                  onClick={handleAddToCart}
+                >
+                  ADD TO CART
+                </Button>
+              ) : (
+                <Button
+                  className="full-width is-white"
+                  onClick={() =>
+                    console.log("Increase the quantity of this item by 1")
+                  }
+                >
+                  ADD MORE
+                </Button>
+              )}
               <Button>PROCEED TO CHECKOUT</Button>
             </div>
             <div className="product-description">{product.description}</div>

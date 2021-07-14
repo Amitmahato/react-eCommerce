@@ -21,11 +21,13 @@ const CartWrapper = styled.div`
 `;
 
 const CartIcon = () => {
-  const {itemCount} = useContext(CartContext)
+  const { itemCount } = useContext(CartContext);
   return (
     <CartWrapper>
       <img src={ShoppingBag} alt="shopping bag" />
-      {itemCount > 0 ? <span className="cart-item-count">{itemCount}</span> : null}
+      {itemCount > 0 ? (
+        <span className="cart-item-count">{itemCount}</span>
+      ) : null}
     </CartWrapper>
   );
 };
