@@ -9,6 +9,7 @@ import { Route, Switch } from "react-router-dom";
 import HomePage from "./components/homepage";
 import NotFound from "./components/404";
 import Shop from "./containers/shop";
+import SingleProductView from "./containers/Single-product-view";
 
 const theme = {
   containerPadding: {
@@ -49,6 +50,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/shop" component={Shop} />
+          <Route exact path="/product/:id" component={SingleProductView} />
           <Route path="*" component={NotFound} />
         </Switch>
       </ThemeProvider>

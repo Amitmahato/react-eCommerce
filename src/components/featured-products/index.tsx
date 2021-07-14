@@ -1,5 +1,6 @@
 import { Button } from "antd";
 import React from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { productInterface } from "../../data";
 
@@ -15,6 +16,7 @@ const FeaturedProductWrapper = styled.div`
   }
 
   .imageWrapper {
+    cursor: pointer;
     img {
       width: 220px;
     }
@@ -42,14 +44,19 @@ const FeaturedProductWrapper = styled.div`
   }
 `;
 
-const FeaturedProduct: React.FC<{ product: productInterface }> = ({
-  product,
-}) => {
-  const { title, imageUrl, price } = product;
+const FeaturedProduct: React.FC<
+  { product: productInterface } & RouteComponentProps
+> = ({ product, history }) => {
+  const { id, title, imageUrl, price } = product;
 
   return (
     <FeaturedProductWrapper>
-      <div className="imageWrapper">
+      <div
+        className="imageWrapper"
+        onClick={() => {
+          history.push(`/product/${id}`);
+        }}
+      >
         <img src={imageUrl} alt={title} />
       </div>
       <div className="productDetails">
@@ -61,4 +68,4 @@ const FeaturedProduct: React.FC<{ product: productInterface }> = ({
   );
 };
 
-export default FeaturedProduct;
+export default withRouter(FeaturedProduct);
