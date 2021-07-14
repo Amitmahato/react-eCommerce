@@ -19,9 +19,12 @@ const CartContextProvider: React.FC = ({ children }) => {
   const addProduct = (product: productInterface) => {
     dispatch({ type: CartAcitonTypes.ADD_ITEM, payload: product });
   };
+  const increaseQuantity = (product: productInterface) => {
+    dispatch({ type: CartAcitonTypes.INCREASE_ITEM, payload: product });
+  };
 
   return (
-    <CartContext.Provider value={{ ...state, addProduct }}>
+    <CartContext.Provider value={{ ...state, addProduct, increaseQuantity }}>
       {children}
     </CartContext.Provider>
   );

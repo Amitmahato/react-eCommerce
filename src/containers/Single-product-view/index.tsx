@@ -57,7 +57,7 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
   const { products } = useContext(AppContext);
   const { id } = match.params;
   const [product, setProduct] = useState<productInterface | null>(null);
-  const { cartItems, addProduct } = useContext(CartContext);
+  const { cartItems, addProduct, increaseQuantity } = useContext(CartContext);
 
   useEffect(() => {
     const p = products.find((item) => Number(item.id) === Number(id));
@@ -74,6 +74,11 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
     }
   };
 
+  const handleAddMore = () => {
+    if (increaseQuantity) {
+      increaseQuantity(product);
+    }
+  };
   return (
     product && (
       <Layout>
@@ -95,12 +100,7 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
                   ADD TO CART
                 </Button>
               ) : (
-                <Button
-                  className="full-width is-white"
-                  onClick={() =>
-                    console.log("Increase the quantity of this item by 1")
-                  }
-                >
+                <Button className="full-width is-white" onClick={handleAddMore}>
                   ADD MORE
                 </Button>
               )}

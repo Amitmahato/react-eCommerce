@@ -57,11 +57,17 @@ const FeaturedProduct: React.FC<
   { product: productInterface } & RouteComponentProps
 > = ({ product, history }) => {
   const { id, title, imageUrl, price } = product;
-  const { cartItems, addProduct } = useContext(CartContext);
+  const { cartItems, addProduct, increaseQuantity } = useContext(CartContext);
 
   const handleAddToCart = () => {
     if (addProduct) {
       addProduct(product);
+    }
+  };
+
+  const handleAddMore = () => {
+    if (increaseQuantity) {
+      increaseQuantity(product);
     }
   };
 
@@ -83,12 +89,7 @@ const FeaturedProduct: React.FC<
             ADD TO CART
           </Button>
         ) : (
-          <Button
-            className="full-width is-white"
-            onClick={() =>
-              console.log("Increase the quantity of this item by 1")
-            }
-          >
+          <Button className="full-width is-white" onClick={handleAddMore}>
             ADD MORE
           </Button>
         )}

@@ -1,15 +1,18 @@
 import { Reducer } from "react";
 import { productInterface } from "../data";
+import { FindInCart } from "../helper/cart";
 
 interface cartStateInterface {
   cartItems: any[];
   itemCount: number;
   total: number;
   addProduct?: React.Dispatch<any>;
+  increaseQuantity?: React.Dispatch<any>;
 }
 
 enum CartAcitonTypes {
   ADD_ITEM = "ADD_ITEM",
+  INCREASE_ITEM = "INCREASE_ITEM",
 }
 
 const addItems = (cartItems: (productInterface & { quantity: number })[]) => {
@@ -31,6 +34,21 @@ const cartReducer: Reducer<cartStateInterface, any> = (state, action) => {
     case CartAcitonTypes.ADD_ITEM: {
       if (!state.cartItems.find((item: any) => item.id === action.payload.id)) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
+      }
+      return {
+        ...state,
+        cartItems: [...state.cartItems],
+        ...addItems(state.cartItems),
+      };
+    }
+    case CartAcitonTypes.INCREASE_ITEM: {
+      if (!FindInCart(action.payload, state.cartItems)) {
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+      } else {
+        const itemIndex = state.cartItems.findIndex(
+          (item: any) => item.id === action.payload.id
+        );
+        state.cartItems[itemIndex].quantity += 1;
       }
       return {
         ...state,
