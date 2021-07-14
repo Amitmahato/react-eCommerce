@@ -10,6 +10,7 @@ import HomePage from "./components/homepage";
 import NotFound from "./components/404";
 import Shop from "./containers/shop";
 import SingleProductView from "./containers/Single-product-view";
+import CartContextProvider from "./context/Cart-context"
 
 const theme = {
   containerPadding: {
@@ -46,14 +47,16 @@ function App() {
         setProducts,
       }}
     >
-      <ThemeProvider theme={theme}>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={Shop} />
-          <Route exact path="/product/:id" component={SingleProductView} />
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </ThemeProvider>
+      <CartContextProvider>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/shop" component={Shop} />
+            <Route exact path="/product/:id" component={SingleProductView} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </ThemeProvider>
+      </CartContextProvider>
     </AppContext.Provider>
   );
 }
