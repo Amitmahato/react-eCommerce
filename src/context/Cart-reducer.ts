@@ -7,12 +7,18 @@ interface cartStateInterface {
   itemCount: number;
   total: number;
   addProduct?: React.Dispatch<any>;
+  removeProduct?: React.Dispatch<any>;
   increaseQuantity?: React.Dispatch<any>;
+  decreaseQuantity?: React.Dispatch<any>;
+  clearAllProducts?: React.Dispatch<any>;
 }
 
 enum CartAcitonTypes {
   ADD_ITEM = "ADD_ITEM",
+  REMOVE_ITEM = "REMOVE_ITEM",
   INCREASE_ITEM = "INCREASE_ITEM",
+  DECREASE_ITEM = "DECREASE_ITEM",
+  CLEAR_ALL = "CLEAR_ALL",
 }
 
 const addItems = (cartItems: (productInterface & { quantity: number })[]) => {
@@ -41,6 +47,19 @@ const cartReducer: Reducer<cartStateInterface, any> = (state, action) => {
         ...addItems(state.cartItems),
       };
     }
+    case CartAcitonTypes.REMOVE_ITEM: {
+      const itemIndex = state.cartItems.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+      if (itemIndex !== -1) {
+        state.cartItems.splice(itemIndex, 1);
+      }
+      return {
+        ...state,
+        cartItems: [...state.cartItems],
+        ...addItems(state.cartItems),
+      };
+    }
     case CartAcitonTypes.INCREASE_ITEM: {
       if (!FindInCart(action.payload, state.cartItems)) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
@@ -54,6 +73,32 @@ const cartReducer: Reducer<cartStateInterface, any> = (state, action) => {
         ...state,
         cartItems: [...state.cartItems],
         ...addItems(state.cartItems),
+      };
+    }
+    case CartAcitonTypes.DECREASE_ITEM: {
+      const itemIndex = state.cartItems.findIndex(
+        (item: any) => item.id === action.payload.id
+      );
+
+      if (itemIndex !== -1) {
+        if (action.payload.quantity > 1) {
+          state.cartItems[itemIndex].quantity -= 1;
+        } else {
+          state.cartItems.splice(itemIndex, 1);
+        }
+      }
+
+      return {
+        ...state,
+        cartItems: [...state.cartItems],
+        ...addItems(state.cartItems),
+      };
+    }
+    case CartAcitonTypes.CLEAR_ALL: {
+      return {
+        ...state,
+        cartItems: [],
+        ...addItems([]),
       };
     }
     default:

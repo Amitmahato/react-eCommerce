@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { CartContext } from "../../context/Cart-context";
 import { Badge } from "antd";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 const CartWrapper = styled.div`
   margin-left: auto;
@@ -13,10 +14,10 @@ const CartWrapper = styled.div`
   }
 `;
 
-const CartIcon = () => {
+const CartIcon: React.FC<RouteComponentProps> = ({ history }) => {
   const { itemCount } = useContext(CartContext);
   return (
-    <CartWrapper>
+    <CartWrapper onClick={() => history.push("/cart")}>
       <Badge
         count={itemCount}
         overflowCount={99}
@@ -29,4 +30,4 @@ const CartIcon = () => {
   );
 };
 
-export default CartIcon;
+export default withRouter(CartIcon);
