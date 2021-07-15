@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { AppContext } from "../../App";
 import Layout from "../../components/layout";
 import { productInterface } from "../../data";
-import { Button } from "antd";
+import { Badge, Button } from "antd";
 import { FindInCart } from "../../helper/cart";
 import { CartContext } from "../../context/Cart-context";
 
@@ -40,11 +40,17 @@ const ProductViewWrapper = styled.div`
       .is-white {
         color: black;
         background-color: white;
+      }
 
+      .add-to-cart {
         :hover {
           color: white;
           background-color: black;
         }
+      }
+
+      .full-width {
+        width: 100%;
       }
     }
   }
@@ -94,17 +100,29 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
             <div className="add-to-cart-btns">
               {!FindInCart(product, cartItems) ? (
                 <Button
-                  className="full-width is-white"
+                  className="full-width is-white add-to-cart"
                   onClick={handleAddToCart}
                 >
                   ADD TO CART
                 </Button>
               ) : (
-                <Button className="full-width is-white" onClick={handleAddMore}>
-                  ADD MORE
-                </Button>
+                <Badge count={FindInCart(product, cartItems)?.quantity}>
+                  <Button
+                    className="full-width  is-white"
+                    onClick={handleAddMore}
+                  >
+                    ADD MORE
+                  </Button>
+                </Badge>
               )}
-              <Button>PROCEED TO CHECKOUT</Button>
+              <Button
+                onClick={() => {
+                  // TODO - add checkout
+                  console.log("Checking out!");
+                }}
+              >
+                PROCEED TO CHECKOUT
+              </Button>
             </div>
             <div className="product-description">{product.description}</div>
           </div>

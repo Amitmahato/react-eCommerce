@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Badge, Button } from "antd";
 import React from "react";
 import { useContext } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
@@ -40,10 +40,10 @@ const FeaturedProductWrapper = styled.div`
   .productDetails {
     font-size: 1rem;
     font-weight: 600;
-  }
 
-  .full-width {
-    width: 100%;
+    .full-width {
+      width: 100%;
+    }
   }
 
   .is-white {
@@ -89,9 +89,14 @@ const FeaturedProduct: React.FC<
             ADD TO CART
           </Button>
         ) : (
-          <Button className="full-width is-white" onClick={handleAddMore}>
-            ADD MORE
-          </Button>
+          <Badge
+            count={FindInCart(product, cartItems)?.quantity}
+            className="full-width"
+          >
+            <Button className="full-width is-white" onClick={handleAddMore}>
+              ADD MORE
+            </Button>
+          </Badge>
         )}
       </div>
     </FeaturedProductWrapper>
