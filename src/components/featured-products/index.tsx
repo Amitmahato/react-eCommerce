@@ -10,6 +10,11 @@ import { FindInCart } from "../../helper/cart";
 const FeaturedProductWrapper = styled.div`
   border: 1px solid #0c223522;
   padding: 1rem;
+  transition: all 0.5s;
+  :hover {
+    transform: scale(1.05, 1.05);
+  }
+
   @media (max-width: 619px) {
     flex-grow: 1;
   }
