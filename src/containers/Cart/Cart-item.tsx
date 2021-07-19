@@ -6,8 +6,8 @@ import {
   MinusCircleOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { productInterface } from "../../data";
 import ButtonGroup from "antd/lib/button/button-group";
+import { ICartItems } from "../../context/Cart-reducer";
 
 const ItemWrapper = styled.div`
   margin: 1rem;
@@ -63,7 +63,7 @@ const ItemWrapper = styled.div`
 `;
 
 interface cartItemInterface {
-  item: productInterface & { quantity: number };
+  item: ICartItems;
   handleIncrease?: React.Dispatch<any>;
   handleDecrease?: React.Dispatch<any>;
   handleItemRemoval?: React.Dispatch<any>;
