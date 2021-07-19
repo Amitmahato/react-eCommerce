@@ -1,14 +1,17 @@
 import React, { createContext, useReducer } from "react";
 import { productInterface } from "../data";
+import { loadCartItems } from "../utils";
 import cartReducer, {
+  addItems,
   CartAcitonTypes,
   cartStateInterface,
 } from "./Cart-reducer";
 
+const cartFromStorage = loadCartItems();
+
 const initialState: cartStateInterface = {
-  cartItems: [],
-  itemCount: 0,
-  total: 0,
+  cartItems: cartFromStorage,
+  ...addItems(cartFromStorage),
 };
 
 const CartContext = createContext(initialState);

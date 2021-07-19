@@ -1,6 +1,7 @@
 import { Reducer } from "react";
 import { productInterface } from "../data";
 import { FindInCart } from "../helper/cart";
+import { removeCart, storeCartItems } from "../utils";
 
 export type ICartItems = productInterface & { quantity: number };
 
@@ -23,7 +24,8 @@ enum CartAcitonTypes {
   CLEAR_ALL = "CLEAR_ALL",
 }
 
-const addItems = (cartItems: ICartItems[]) => {
+export const addItems = (cartItems: ICartItems[]) => {
+  storeCartItems(cartItems);
   return {
     itemCount: cartItems.reduce(
       (total, item) => Number(total) + Number(item.quantity),
@@ -97,6 +99,7 @@ const cartReducer: Reducer<cartStateInterface, any> = (state, action) => {
       };
     }
     case CartAcitonTypes.CLEAR_ALL: {
+      removeCart();
       return {
         ...state,
         cartItems: [],
