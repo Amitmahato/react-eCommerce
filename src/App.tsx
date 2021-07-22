@@ -12,6 +12,9 @@ import Shop from "./containers/shop";
 import SingleProductView from "./containers/Single-product-view";
 import CartContextProvider from "./context/Cart-context";
 import CartPage from "./containers/Cart";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import Checkout from "./components/checkout";
 
 const theme = {
   containerPadding: {
@@ -39,27 +42,33 @@ interface AppContextInterface {
 const AppContext = createContext<AppContextInterface>(null);
 
 function App() {
+  const stripePromise = loadStripe(
+    process.env.REACT_APP_STRIPE_PULBLISH_KEY || ""
+  );
   const [products, setProducts] = useState(SHOP_DATA);
   return (
-    <AppContext.Provider
-      value={{
-        // @ts-ignore
-        products,
-        setProducts,
-      }}
-    >
-      <CartContextProvider>
-        <ThemeProvider theme={theme}>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/shop" component={Shop} />
-            <Route exact path="/product/:id" component={SingleProductView} />
-            <Route exact path="/cart" component={CartPage} />
-            <Route path="*" component={NotFound} />
-          </Switch>
-        </ThemeProvider>
-      </CartContextProvider>
-    </AppContext.Provider>
+    <Elements stripe={stripePromise}>
+      <AppContext.Provider
+        value={{
+          // @ts-ignore
+          products,
+          setProducts,
+        }}
+      >
+        <CartContextProvider>
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/shop" component={Shop} />
+              <Route exact path="/product/:id" component={SingleProductView} />
+              <Route exact path="/cart" component={CartPage} />
+              <Route exact path="/checkout" component={Checkout} />
+              <Route path="*" component={NotFound} />
+            </Switch>
+          </ThemeProvider>
+        </CartContextProvider>
+      </AppContext.Provider>
+    </Elements>
   );
 }
 

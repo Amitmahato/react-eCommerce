@@ -2,6 +2,7 @@ import { Button } from "antd";
 import ButtonGroup from "antd/lib/button/button-group";
 import React from "react";
 import { useContext } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../../components/layout";
 import { CartContext } from "../../context/Cart-context";
@@ -49,7 +50,7 @@ const CartPageWrapper = styled.div`
   }
 `;
 
-const CartPage: React.FC = () => {
+const CartPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
   const {
     cartItems,
     itemCount,
@@ -90,12 +91,7 @@ const CartPage: React.FC = () => {
           {itemCount > 0 && (
             <ButtonGroup className="cart-action">
               <Button onClick={clearAllProducts}>Clear All</Button>
-              <Button
-                onClick={() => {
-                  // TODO - process checkout
-                  console.log("Process checkout!");
-                }}
-              >
+              <Button onClick={() => history.push("/checkout")}>
                 Checkout
               </Button>
             </ButtonGroup>

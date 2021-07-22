@@ -115,12 +115,7 @@ const SingleProductView: React.FC<RouteComponentProps<any>> = ({
                   </Button>
                 </Badge>
               )}
-              <Button
-                onClick={() => {
-                  // TODO - add checkout
-                  console.log("Checking out!");
-                }}
-              >
+              <Button onClick={() => history.push("/checkout")}>
                 PROCEED TO CHECKOUT
               </Button>
             </div>
