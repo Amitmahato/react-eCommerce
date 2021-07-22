@@ -15,6 +15,8 @@ import CartPage from "./containers/Cart";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Checkout from "./components/checkout";
+import Success from "./components/checkout/stripe-checkout/success";
+import Cancel from "./components/checkout/stripe-checkout/cancel";
 
 const theme = {
   containerPadding: {
@@ -63,6 +65,8 @@ function App() {
               <Route exact path="/product/:id" component={SingleProductView} />
               <Route exact path="/cart" component={CartPage} />
               <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/success" component={Success} />
+              <Route exact path="/cancel" component={Cancel} />
               <Route path="*" component={NotFound} />
             </Switch>
           </ThemeProvider>
