@@ -41,11 +41,18 @@ const CartPageWrapper = styled.div`
     font-weight: 600;
 
     .cart-action {
-      width: 60%;
+      width: 80%;
       margin-top: 1rem;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+
+      & .checkout-buttons {
+        display: flex;
+        height: 80px;
+        flex-direction: column;
+        justify-content: space-between;
+      }
     }
   }
 `;
@@ -91,9 +98,14 @@ const CartPage: React.FC<RouteComponentProps<any>> = ({ history }) => {
           {itemCount > 0 && (
             <ButtonGroup className="cart-action">
               <Button onClick={clearAllProducts}>Clear All</Button>
-              <Button onClick={() => history.push("/checkout")}>
-                Checkout
-              </Button>
+              <ButtonGroup className="checkout-buttons">
+                <Button onClick={() => history.push("/stripe-checkout")}>
+                  Stripe Checkout
+                </Button>
+                <Button onClick={() => history.push("/custom-checkout")}>
+                  Custom Checkout
+                </Button>
+              </ButtonGroup>
             </ButtonGroup>
           )}
         </div>

@@ -64,7 +64,8 @@ function App() {
               <Route exact path="/shop" component={Shop} />
               <Route exact path="/product/:id" component={SingleProductView} />
               <Route exact path="/cart" component={CartPage} />
-              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/stripe-checkout" component={Checkout} />
+              <Route exact path="/custom-checkout" component={Checkout} />
               <Route exact path="/success" component={Success} />
               <Route exact path="/cancel" component={Cancel} />
               <Route path="*" component={NotFound} />
